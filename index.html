@@ -1,0 +1,91 @@
+<title>Verdant Skyline</title>
+<style>
+  :root{
+    --page-bg: #ded2b3;
+    --ink-text: #362d1f;
+    --muted: #8a7c60;
+    --plate-border: #c9b98a;
+    --button-bg: #3d4a86;
+    --button-bg-hover: #2f3a6c;
+    --button-text: #f3ecd9;
+    --focus-ring: #3d4a86;
+    /* Artwork palette: a printed ink drawing, fixed regardless of viewer theme */
+    --paper: #efe5cd;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --page-bg: #17151a; --ink-text: #e9e3d2; --muted: #9d9480; --plate-border: #3a3440;
+      --button-bg: #7c8ad0; --button-bg-hover: #93a0e0; --button-text: #17151a; --focus-ring: #93a0e0;
+    }
+  }
+  :root[data-theme="dark"]{
+    --page-bg: #17151a; --ink-text: #e9e3d2; --muted: #9d9480; --plate-border: #3a3440;
+    --button-bg: #7c8ad0; --button-bg-hover: #93a0e0; --button-text: #17151a; --focus-ring: #93a0e0;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin: 0;
+    background: var(--page-bg);
+    color: var(--ink-text);
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    display: flex;
+    justify-content: center;
+    padding-inline: 20px;
+    padding-block: clamp(28px, 6vw, 64px);
+  }
+  .stage{ width: min(1060px, 100%); display: flex; flex-direction: column; gap: 18px; }
+  .frame{
+    background: var(--paper);
+    border-radius: 6px;
+    padding: clamp(10px, 2vw, 20px);
+    box-shadow: 0 40px 70px -30px rgba(20, 15, 5, 0.45), 0 2px 0 rgba(20, 15, 5, 0.08), inset 0 0 0 1px rgba(20, 15, 5, 0.06);
+  }
+  .canvas-wrap{ position: relative; width: 100%; line-height: 0; cursor: crosshair; }
+  #paper{ display: block; width: 100%; height: auto; border-radius: 2px; }
+  #ink, #fx{ position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .plate{
+    display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 14px 20px;
+    border-top: 1px solid var(--plate-border); padding-top: 14px;
+  }
+  .meta h1{ margin: 0; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 500; font-size: clamp(21px, 3.2vw, 28px); letter-spacing: 0.01em; }
+  .meta p{ margin: 6px 0 0; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  button#redraw{
+    font-family: inherit; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--button-bg); color: var(--button-text); border: none; padding: 12px 20px; border-radius: 3px;
+    cursor: pointer; transition: background-color 150ms ease; white-space: nowrap;
+  }
+  button#redraw:hover{ background: var(--button-bg-hover); }
+  button#redraw:focus-visible{ outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+  button#redraw:active{ transform: translateY(1px); }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<div class="stage">
+  <div class="frame">
+    <div class="canvas-wrap" id="canvasWrap">
+      <canvas id="paper" width="1200" height="760" role="img" aria-label="A hand-inked perspective drawing looking out from a garden terrace over a city. A central avenue runs straight to the vanishing point between blocks of crosshatched buildings with individually drawn windows, set-back tiers, rooftop gardens, hanging gardens, spired towers, awnings, street trees and small parks, with rolling hills on the horizon. In the foreground a stone balustrade, paved plaza, tiered fountain, hedges, lamps and two swaying trees made of thousands of leaves; tiny pedestrians walk the terrace and the avenue. The ink scatters away from the cursor and settles back, clicking lobs a ball from the bottom of the view that arcs into the scene: it blasts a hole in a building's wall, flinging debris and revealing a wrecked interior, or snaps a tree's limb, which hangs, tears free and falls, bouncing to rest and shedding leaves."></canvas>
+      <canvas id="ink" width="1200" height="760" aria-hidden="true"></canvas>
+      <canvas id="fx" width="1200" height="760" aria-hidden="true"></canvas>
+    </div>
+  </div>
+  <div class="plate">
+    <div class="meta">
+      <h1>Verdant Skyline</h1>
+      <p>Ink study - click to lob a ball at the buildings and trees</p>
+    </div>
+    <button id="redraw" type="button">Redraw sketch</button>
+  </div>
+</div>
+
+<script src="core.js"></script>
+<script src="proj.js"></script>
+<script src="tree.js"></script>
+<script src="city.js"></script>
+<script src="garden.js"></script>
+<script src="engine.js"></script>
+<script src="reveal.js"></script>
+<script src="blast.js"></script>
+<script src="fell.js"></script>
+<script src="ball.js"></script>
+<script src="main.js"></script>
